@@ -1,0 +1,1 @@
+web: gunicorn -w 2 -k uvicorn.worker.UvicornWorker ml_api:app
