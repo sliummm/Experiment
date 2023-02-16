@@ -52,9 +52,6 @@ df = df[df.TotRmsAbvGrd < 18]
 
 df = df[cols]
 
-s = MinMaxScaler()
-df = pd.DataFrame(s.fit_transform(df), columns=df.columns)
-
 # X.boxplot()
 # plt.show()
 print(df.shape)
@@ -80,6 +77,9 @@ X = df[fin_cols]
 print(X.isnull().sum())
 
 y = df['SalePrice']
+
+s = MinMaxScaler()
+df = pd.DataFrame(s.fit_transform(df), columns=df.columns)
 
 #Split test and training set
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=56)
@@ -113,6 +113,7 @@ model_xgb = XGBRegressor(learning_rate=0.05, n_jobs=3)
 model_xgb.fit(X_train, y_train, eval_set=[(X_test, y_test)], verbose=False)
 
 y_pred_xgb = model_xgb.predict(X_test)
+
 
 MAE_xgb = mean_absolute_error(y_test,y_pred_xgb)
 R2_xgb = r2_score(y_test,y_pred_xgb)
