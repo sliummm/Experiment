@@ -90,6 +90,9 @@ model_lr.fit(X_train, y_train)
 
 y_pred_lr = model_lr.predict(X_test)
 
+sns.regplot(x=y_test,y=y_pred_lr, scatter_kws={"color":"blue"},line_kws={"color":"red"}).set(title='Linear Regression: Actual v.s. Predicted value')
+
+
 MAE_lr = mean_absolute_error(y_test,y_pred_lr)
 R2_lr = r2_score(y_test,y_pred_lr)
 MSE_lr = mean_squared_error(y_test,y_pred_lr)
@@ -101,6 +104,8 @@ model_rfr = RandomForestRegressor()
 model_rfr.fit(X_train, y_train)
 
 y_pred_rfr = model_rfr.predict(X_test)
+
+sns.regplot(x=y_test,y=y_pred_rfr, scatter_kws={"color":"blue"},line_kws={"color":"red"}).set(title='Random forest regressor: Actual v.s. Predicted value')
 
 MAE_rfr = mean_absolute_error(y_test,y_pred_rfr)
 R2_rfr = r2_score(y_test,y_pred_rfr)
@@ -114,6 +119,9 @@ model_xgb.fit(X_train, y_train, eval_set=[(X_test, y_test)], verbose=False)
 
 y_pred_xgb = model_xgb.predict(X_test)
 
+sns.regplot(x=y_test,y=y_pred_xgb, scatter_kws={"color":"blue"},line_kws={"color":"red"}).set(title='XGBoost regressor: Actual v.s. Predicated value')
+
+plt.show()
 
 MAE_xgb = mean_absolute_error(y_test,y_pred_xgb)
 R2_xgb = r2_score(y_test,y_pred_xgb)
@@ -122,4 +130,4 @@ MSE_xgb = mean_squared_error(y_test,y_pred_xgb)
 print ("XGBoost Regressor:       ","R2 score - ", R2_xgb, "MAE - ", MAE_xgb, "MSE - ", MSE_xgb)
 #Comparing the Metrics XGBoot Regressor have the highest R2 score which is more accurate in predication than the other two models and the Lowest Mean Squared error which means this model can better represent the dataset.
 
-pickle.dump(model_xgb, open('xgbrmodel.pkl', 'wb'))
+# pickle.dump(model_xgb, open('xgbrmodel.pkl', 'wb'))
